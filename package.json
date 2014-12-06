@@ -1,0 +1,23 @@
+{
+  "name": "spreadsheet-queue",
+  "version": "1.0.0",
+  "description": "spreadsheet-queue =================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eiriksm/spreadsheet-queue.git"
+  },
+  "author": "Eirik S. Morland <eirik@morland.no>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eiriksm/spreadsheet-queue/issues"
+  },
+  "homepage": "https://github.com/eiriksm/spreadsheet-queue",
+  "dependencies": {
+    "google-spreadsheet-append-es5": "0.0.5",
+    "hapi": "^7.5.2"
+  }
+}
