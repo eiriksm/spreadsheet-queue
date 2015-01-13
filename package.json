@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/eiriksm/spreadsheet-queue",
   "dependencies": {
+    "bunyan": "^1.2.3",
     "google-spreadsheet-append-es5": "0.0.5",
-    "hapi": "^7.5.2"
+    "hapi": "^8.1.0",
+    "hapi-bunyan": "^0.4.2"
   }
 }
