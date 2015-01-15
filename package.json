@@ -22,5 +22,8 @@
     "google-spreadsheet-append-es5": "0.0.5",
     "hapi": "^8.1.0",
     "hapi-bunyan": "^0.4.2"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
