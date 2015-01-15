@@ -10,7 +10,8 @@ var sheets = {};
 
 var appendRow = require('./src/appendrow');
 var server = new Hapi.Server();
-server.connection({ port: 8000 });
+var port = process.env.PORT || 8000;
+server.connection({ port: port });
 var access = {
   1: {
     '1oEww5nwNpkvbeNYPs_QpxPfbEGBit05zjLd4iN7siDY': true
@@ -59,6 +60,6 @@ server.register(config, function(err) {
 });
 
 server.start(
-  logger.info('Started server on port 8000')
+  logger.info('Started server on port ' + port)
 );
 
