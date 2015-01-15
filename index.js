@@ -19,6 +19,14 @@ var access = {
 };
 
 server.route({
+  method: 'GET',
+  path: '/',
+  handler: function(request, reply) {
+    return reply.file('index.html');
+  }
+});
+
+server.route({
   method: 'POST',
   path: '/message/{user}/{id}',
   handler: function (request, reply) {
