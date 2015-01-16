@@ -21,7 +21,6 @@ process.env.cookiePass = process.env.cookiePass || config.cookiePass;
 
 var appendRow = require('./src/appendrow');
 var server = new Hapi.Server();
-console.log(server.info.uri);
 var port = process.env.PORT || 8000;
 server.connection({ port: port });
 console.log(server.info.uri);
