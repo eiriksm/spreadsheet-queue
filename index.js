@@ -24,19 +24,18 @@ var appendRow = require('./src/appendrow');
 var server = new Hapi.Server();
 var port = process.env.PORT || 8000;
 server.connection({ port: port });
-console.log(server.info.uri);
 var access = {
   1: {
     '1oEww5nwNpkvbeNYPs_QpxPfbEGBit05zjLd4iN7siDY': true
   }
 };
-var config = {
+var conf = {
   register: require('hapi-bunyan'),
   options: {
     logger: logger
   }
 };
-server.register(config, function(err) {
+server.register(conf, function(err) {
   if (err) {
     throw err;
   }
@@ -93,7 +92,14 @@ server.route({
   }
 });
 
+server.ext('onRequest', function (request, reply) {
+  if (process.env.NODE_ENV === 'production') {
+    request.connection.info.protocol = 'https';
+  }
+
+  return reply['continue']();
+});
+
 server.start(
   logger.info('Started server on port ' + port)
 );
-console.log(server.info.uri);
