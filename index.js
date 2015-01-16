@@ -8,6 +8,17 @@ var util = require('util');
 var Spreadsheet = require('google-spreadsheet-append-es5');
 var sheets = {};
 
+var config;
+try {
+  config = require('./config');
+}
+catch (err) {
+  config = {};
+}
+process.env.clientId = process.env.clientId || config.clientId;
+process.env.clientSecret = process.env.clientSecret || config.clientSecret;
+process.env.cookiePass = process.env.cookiePass || config.cookiePass;
+
 var appendRow = require('./src/appendrow');
 var server = new Hapi.Server();
 var port = process.env.PORT || 8000;
@@ -17,11 +28,37 @@ var access = {
     '1oEww5nwNpkvbeNYPs_QpxPfbEGBit05zjLd4iN7siDY': true
   }
 };
-
+var config = {
+  register: require('hapi-bunyan'),
+  options: {
+    logger: logger
+  }
+};
+server.register(config, function(err) {
+  if (err) {
+    throw err;
+  }
+});
+server.register([
+  {register: require('hapi-auth-cookie')},
+  {register: require('bell')},
+  {register: require('./src/auth')}], function(err) {
+    if (err) {
+      throw(err);
+    }
+});
 server.route({
   method: 'GET',
   path: '/',
+  config: {
+    auth: {
+      strategy: 'session',
+      mode: 'try'
+    },
+    plugins: { 'hapi-auth-cookie': { redirectTo: false } }
+  },
   handler: function(request, reply) {
+    console.log(request.auth);
     return reply.file('index.html');
   }
 });
@@ -54,20 +91,6 @@ server.route({
   }
 });
 
-var config = {
-  register: require('hapi-bunyan'),
-  options: {
-    logger: logger
-  }
-};
-
-server.register(config, function(err) {
-  if (err) {
-    throw err;
-  }
-});
-
 server.start(
   logger.info('Started server on port ' + port)
 );
-
