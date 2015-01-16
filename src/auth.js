@@ -8,6 +8,7 @@ exports.register = function(plugin, options, next) {
 
   if (process.env.NODE_ENV === 'production') {
     console.log('will use secure');
+
     secure = true;
   }
   plugin.auth.strategy('session', 'cookie', {
@@ -35,7 +36,10 @@ exports.register = function(plugin, options, next) {
     password: process.env.cookiePass,
     clientId: process.env.clientId,
     clientSecret: process.env.clientSecret,
-    isSecure: secure
+    isSecure: secure,
+    providerParams: {
+      redirect_uri: process.env.redirectUri
+    }
   });
   plugin.route({
     method: '*',

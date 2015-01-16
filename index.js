@@ -18,6 +18,7 @@ catch (err) {
 process.env.clientId = process.env.clientId || config.clientId;
 process.env.clientSecret = process.env.clientSecret || config.clientSecret;
 process.env.cookiePass = process.env.cookiePass || config.cookiePass;
+process.env.redirectUri = process.env.redirectUri || config.redirectUri;
 
 var appendRow = require('./src/appendrow');
 var server = new Hapi.Server();
