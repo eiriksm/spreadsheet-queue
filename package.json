@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/eiriksm/spreadsheet-queue",
   "dependencies": {
-    "bell": "^2.0.0",
+    "bell": "git+https://github.com/eiriksm/bell#feat/option-force-https",
     "bunyan": "^1.2.3",
     "google-spreadsheet-append-es5": "0.0.5",
     "hapi": "^8.1.0",

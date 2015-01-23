@@ -36,7 +36,8 @@ exports.register = function(plugin, options, next) {
     password: process.env.cookiePass,
     clientId: process.env.clientId,
     clientSecret: process.env.clientSecret,
-    isSecure: secure
+    isSecure: secure,
+    forceHttps: secure
   });
   plugin.route({
     method: '*',
