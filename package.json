@@ -26,7 +26,7 @@
     "hapi-bunyan": "^0.4.2"
   },
   "engines": {
-    "node": "0.10.x"
+    "iojs": "1.0.x"
   },
   "devDependencies": {
     "mocha": "^2.1.0"
