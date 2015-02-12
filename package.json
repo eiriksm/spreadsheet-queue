@@ -22,6 +22,7 @@
     "boom": "^2.6.1",
     "bunyan": "^1.2.3",
     "google-spreadsheet-append-es5": "0.0.5",
+    "handlebars": "^3.0.0",
     "hapi": "^8.1.0",
     "hapi-auth-cookie": "^2.0.0",
     "hapi-bunyan": "^0.4.2"
@@ -30,7 +31,6 @@
     "iojs": "1.0.x"
   },
   "devDependencies": {
-    "handlebars": "^3.0.0",
     "mocha": "^2.1.0"
   }
 }
