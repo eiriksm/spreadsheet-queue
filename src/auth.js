@@ -1,14 +1,11 @@
 'use strict';
+
+var cache = require('./cache');
+
 exports.register = function(plugin, options, next) {
-  var cache = plugin.cache({
-    expiresIn: 3 * 24 * 60 * 60 * 1000
-  });
-  plugin.app.cache = cache;
   var secure = false;
 
   if (process.env.NODE_ENV === 'production') {
-    console.log('will use secure');
-
     secure = true;
   }
   plugin.auth.strategy('session', 'cookie', {
@@ -18,7 +15,6 @@ exports.register = function(plugin, options, next) {
     isSecure: secure,
     validateFunc: function(session, callback) {
       cache.get(session.sid, function(err, cached) {
-
         if (err) {
           return callback(err, false);
         }
@@ -52,11 +48,12 @@ exports.register = function(plugin, options, next) {
         }, 0, function(err) {
           if (err) {
             reply(err);
+            return;
           }
           request.auth.session.set({
             sid: sid
           });
-          return reply.redirect('/');
+          reply.redirect('/');
         });
       }
     }
