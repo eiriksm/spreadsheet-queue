@@ -11,7 +11,7 @@ module.exports = {
   get: function(cid, callback) {
     // First try in-mem.
     var _callback = function(e, d) {
-      if (d.expire && d.expire > Date.now()) {
+      if (!e & d && d.expire && d.expire > Date.now()) {
         callback();
         return;
       }
