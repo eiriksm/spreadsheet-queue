@@ -15,6 +15,7 @@ module.exports = {
         callback();
         return;
       }
+      d = d || {};
       callback(e, d.data);
     };
     if (cache[cid]) {
