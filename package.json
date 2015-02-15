@@ -33,7 +33,7 @@
     "uuid": "^2.0.1"
   },
   "engines": {
-    "iojs": "1.0.x"
+    "iojs": "1.2.x"
   },
   "devDependencies": {
     "browserify": "^8.1.3",

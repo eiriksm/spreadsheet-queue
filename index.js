@@ -265,6 +265,14 @@ server.route({
     }
   }
 });
+
+server.ext('onRequest', function (request, reply) {
+  if (process.env.NODE_ENV === 'production') {
+    request.connection.info.protocol = 'https';
+  }
+
+  return reply['continue']();
+});
 // Get git version first.
 git.short(function (str) {
   gitRev = str;
