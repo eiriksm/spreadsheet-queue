@@ -1,0 +1,50 @@
+<!DOCTYPE html>                                                                                                                                                   <html>
+  <head>
+  <title>SHEEET</title>
+    <link rel="stylesheet" href="/public/css/style.css">
+  </head>
+  <body>
+    <div class="off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+        <nav class="tab-bar">
+          <section class="left-small">
+            <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+          </section>
+
+          <section class="middle tab-bar-section">
+            <h1 class="title"><a href="/">SHEEET</a></h1>
+          </section>
+
+        </nav>
+
+        <aside class="left-off-canvas-menu">
+          <ul class="off-canvas-list">
+            {{#if user}}
+              <li><label>{{user.profile.email}}</label></li>
+              <li><a href="/user">Account</a></li>
+              <li><a href="/logout">Log out</a></li>
+            {{else}}
+            <li><label>User</label></li>
+              <li><a href="/login">Log in</a></li>
+            {{/if}}
+            <li><label>About</label></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </aside>
+
+        <section class="main-section">
+          <div class="row">
+            <div class="large-12 columns">
+              {{{ content }}}
+            </div>
+          </div>
+          <div class="footer">
+            {{> footer}}
+          </div>
+        </section>
+
+      <a class="exit-off-canvas"></a>
+      </div>
+    </div>
+  </body>
+</html>

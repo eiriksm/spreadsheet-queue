@@ -1,0 +1,18 @@
+<h1>{{user.profile.email}}</h1>
+
+<h3>My documents</h3>
+{{#if documents}}
+  <ul>
+  {{#each documents}}
+    <li>
+      <a href="/user/docs/{{this.uuid}}">
+        {{this.title}}
+      </a>
+      <a href="/user/docs/{{this.uuid}}/delete">
+        <i class="fa fa-trash"></i>
+      </a>
+    </li>
+  {{/each}}
+  </ul>
+{{/if}}
+<a href="/documents/new">Create document</a>

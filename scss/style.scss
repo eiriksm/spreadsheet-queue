@@ -1,0 +1,12 @@
+@import "variables";
+@import "normalize";
+@import "foundation";
+@import "font-awesome";
+html, body {
+  min-height: 100%;
+}
+.footer {
+  background: $primary-color;
+  padding: 2rem;
+  color: $white;
+}

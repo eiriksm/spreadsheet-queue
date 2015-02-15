@@ -1,4 +1,6 @@
+'use strict';
 var bunyan = require('bunyan');
+var git = require('git-rev');
 var logger = bunyan.createLogger({
   name: 'sheet-queue',
   level: process.env.LOG_LEVEL || 'debug'
@@ -6,8 +8,11 @@ var logger = bunyan.createLogger({
 var Hapi = require('hapi');
 var Boom = require('boom');
 var util = require('util');
-var Spreadsheet = require('google-spreadsheet-append-es5');
+var Joi = require('joi');
+var uuid = require('uuid');
+var spreadsheet = require('google-spreadsheet-append-es5');
 var sheets = {};
+var gitRev;
 
 var config;
 try {
@@ -16,6 +21,7 @@ try {
 catch (err) {
   config = {};
 }
+var db = require('./src/db');
 process.env.clientId = process.env.clientId || config.clientId;
 process.env.clientSecret = process.env.clientSecret || config.clientSecret;
 process.env.cookiePass = process.env.cookiePass || config.cookiePass;
@@ -23,14 +29,6 @@ process.env.redirectUri = process.env.redirectUri || config.redirectUri;
 
 var appendRow = require('./src/appendrow');
 var server = new Hapi.Server();
-server.views({
-  engines: {
-    html: require('handlebars')
-  },
-  path: __dirname + '/templates',
-  partialsPath: __dirname + '/templates',
-  layout: true
-});
 var port = process.env.PORT || 8000;
 server.connection({ port: port });
 var access = {
@@ -72,7 +70,6 @@ server.route({
     if (request.auth.isAuthenticated) {
       user = request.auth.credentials;
     }
-    console.log(user);
 
     return reply.view('index', {
       user: user
@@ -95,7 +92,7 @@ server.route({
       return reply(Boom.create(401, 'Mass destruction.'));
     }
     if (!sheets[id]) {
-      sheets[id] = Spreadsheet({
+      sheets[id] = spreadsheet({
         auth: {
           email: process.env.SHEET_EMAIL,
           keyFile: 'nokey.pem'
@@ -105,6 +102,156 @@ server.route({
     }
     appendRow(request.payload, sheets[id]);
     return reply('ok');
+  }
+});
+server.route({
+  path: "/logout",
+  method: "GET",
+  config: {
+    handler: function(request, reply) {
+      try {
+        request.auth.session.clear();
+      }
+      catch (e) {
+        // Whatever.
+      }
+      return reply.redirect('/');
+    },
+    auth: 'session'
+  }
+});
+server.route({
+  method: 'GET',
+  path: '/user',
+  config: {
+    auth: {
+      strategy: 'session',
+      mode: 'try'
+    },
+    plugins: { 'hapi-auth-cookie': { redirectTo: false } }
+  },
+  handler: function(request, reply) {
+    if (request.auth.isAuthenticated) {
+      var user = request.auth.credentials;
+      db.getAll(request.auth.artifacts.sid, function(e, f) {
+        console.log(f)
+        reply.view('user', {
+          user: user,
+          documents: f
+        });
+      });
+      return;
+    }
+    else {
+      reply.redirect('/login');
+    }
+  }
+});
+server.route({
+  method: 'GET',
+  path: '/user/docs/{doc}',
+  config: {
+    auth: 'session'
+  },
+  handler: function(request, reply) {
+    if (request.auth.isAuthenticated) {
+      var user = request.auth.credentials;
+      var key = util.format('%s-%s',
+                            request.auth.artifacts.sid,
+                            encodeURIComponent(request.params.doc)
+      );
+      db.get(key, function(e, d) {
+        if (e) {
+          reply(Boom.create(500, '', e));
+          return;
+        }
+        if (!d) {
+          reply(Boom.create(404));
+          return;
+        }
+        reply.view('document', {
+          user: user,
+          document: d
+        });
+      });
+    }
+    else {
+      reply.redirect('/login');
+    }
+  }
+});
+server.route({
+  method: 'GET',
+  path: '/user/docs/{doc}/delete',
+  config: {
+    auth: 'session'
+  },
+  handler: function(request, reply) {
+    if (request.auth.isAuthenticated) {
+      var key = util.format('%s-%s',
+                            request.auth.artifacts.sid,
+                            encodeURIComponent(request.params.doc)
+      );
+      db.del(key, function(e) {
+        if (e) {
+          reply(Boom.create(500, '', e));
+          return;
+        }
+        reply.redirect('/user');
+      });
+    }
+    else {
+      reply.redirect('/login');
+    }
+  }
+});
+server.route({
+  method: 'GET',
+  path: '/documents/new',
+  config: {
+    auth: 'session'
+  },
+  handler: function(request, reply) {
+    if (request.auth.isAuthenticated) {
+      var user = request.auth.credentials;
+      return reply.view('new_document', {
+        user: user
+      });
+    }
+    else {
+      return reply.redirect('/login');
+    }
+  }
+});
+server.route({
+  method: 'POST',
+  path: '/document',
+  config: {
+    auth: 'session',
+    validate: {
+      payload: {
+        title: Joi.string().min(1).required(),
+        id: Joi.string().min(1).required()
+      }
+    }
+  },
+
+  handler: function(request, reply) {
+    if (request.auth.isAuthenticated) {
+      // Create a name for the document.
+      var uid = request.auth.artifacts.sid;
+      var id = uuid.v4();
+      var key = util.format('%s-%s', uid, id);
+      var data = request.payload;
+      data.uuid = id;
+      db.set(key, data, function(e) {
+        reply.redirect('/user');
+        return;
+      });
+    }
+    else {
+      reply.redirect('/login');
+    }
   }
 });
 server.route({
@@ -118,14 +265,26 @@ server.route({
     }
   }
 });
-server.ext('onRequest', function (request, reply) {
-  if (process.env.NODE_ENV === 'production') {
-    request.connection.info.protocol = 'https';
-  }
-
-  return reply['continue']();
+// Get git version first.
+git.short(function (str) {
+  gitRev = str;
+  server.views({
+    engines: {
+      html: require('handlebars')
+    },
+    path: __dirname + '/templates',
+    partialsPath: __dirname + '/templates/partials',
+    layoutPath: __dirname + '/templates/layout',
+    layout: true,
+    isCached: false,
+    context: {
+      rev: gitRev
+    }
+  });
+  server.start(function(err) {
+    if (!err) {
+      logger.info('Started server on port ' + port);
+      logger.info('Git revision is ' + gitRev);
+    }
+  });
 });
-
-server.start(
-  logger.info('Started server on port ' + port)
-);

@@ -1,10 +1,31 @@
 'use strict';
 var fs = require('fs');
 var path = require('path');
+var glob = require('glob');
+var async = require('async');
 
 module.exports = {
-  get: function(cid, callback) {
-    var filepath = path.join('.data', cid + '.json');
+  getAll: function(pattern, callback) {
+    var p = path.join('.data', '**' + pattern + '-**');
+    glob(p, function(e, files) {
+      var fsutf8 = function(file, cb) {
+        fs.readFile(file, 'utf8', function(er, res) {
+          var d = {};
+          try {
+            d = JSON.parse(res);
+          }
+          catch (error) {
+            cb(error);
+            return;
+          }
+          cb(er, d);
+        });
+      };
+      async.map(files, fsutf8, callback);
+    });
+  },
+  get: function(key, callback) {
+    var filepath = getPath(key);
     fs.readFile(filepath, 'utf8', function(e, d) {
       var data;
       try {
@@ -17,9 +38,9 @@ module.exports = {
       callback(e, data);
     });
   },
-  set: function(cid, data, callback) {
+  set: function(key, data, callback) {
     // First to file system.
-    var filepath = path.join('.data', cid + '.json');
+    var filepath = getPath(key);
     var d = '';
     try {
       d = JSON.stringify(data);
@@ -32,5 +53,13 @@ module.exports = {
       // Then write to in-mem.
       callback(e);
     });
+  },
+  del: function(key, callback) {
+    var filepath = getPath(key);
+    fs.unlink(filepath, callback);
   }
 };
+
+function getPath(key) {
+  return path.join('.data', key + '.json');
+}
