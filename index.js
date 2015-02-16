@@ -21,11 +21,13 @@ try {
 catch (err) {
   config = {};
 }
-var db = require('./src/db');
+var db = require('./src/pgdb');
 process.env.clientId = process.env.clientId || config.clientId;
 process.env.clientSecret = process.env.clientSecret || config.clientSecret;
 process.env.cookiePass = process.env.cookiePass || config.cookiePass;
 process.env.redirectUri = process.env.redirectUri || config.redirectUri;
+
+config.pgUrl = config.pgUrl || process.env.DATABASE_URL;
 
 var appendRow = require('./src/appendrow');
 var server = new Hapi.Server();
@@ -72,7 +74,8 @@ server.route({
     }
 
     return reply.view('index', {
-      user: user
+      user: user,
+      front: true
     });
   }
 });
@@ -286,13 +289,19 @@ git.short(function (str) {
     layout: true,
     isCached: false,
     context: {
-      rev: gitRev
+      rev: gitRev,
+      front: false
     }
   });
-  server.start(function(err) {
-    if (!err) {
-      logger.info('Started server on port ' + port);
-      logger.info('Git revision is ' + gitRev);
-    }
+  db.init(config, function() {
+    server.start(function(err) {
+      if (!err) {
+        logger.info('Started server on port ' + port);
+        logger.info('Git revision is ' + gitRev);
+      }
+      else {
+        throw err;
+      }
+    });
   });
 });
