@@ -137,7 +137,6 @@ server.route({
     if (request.auth.isAuthenticated) {
       var user = request.auth.credentials;
       db.getAll(request.auth.artifacts.sid, function(e, f) {
-        console.log(f)
         reply.view('user', {
           user: user,
           documents: f
@@ -287,7 +286,7 @@ git.short(function (str) {
     partialsPath: __dirname + '/templates/partials',
     layoutPath: __dirname + '/templates/layout',
     layout: true,
-    isCached: false,
+    isCached: (process.env.NODE_ENV === 'production'),
     context: {
       rev: gitRev,
       front: false
