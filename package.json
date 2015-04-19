@@ -47,7 +47,7 @@
   "devDependencies": {
     "browserify": "^9.0.8",
     "font-awesome": "^4.3.0",
-    "foundation-scss": "^5.5.0",
+    "foundation.scss": "^5.5.1",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-livereload": "^3.8.0",

@@ -22,7 +22,7 @@ gulp.task('styles', function() {
     .pipe(sass({
       includePaths: [
         'node_modules/font-awesome/scss',
-        'node_modules/foundation-scss'
+        'node_modules/foundation.scss'
       ],
       outputStyle: 'expanded',
       errLogToConsole: true,
