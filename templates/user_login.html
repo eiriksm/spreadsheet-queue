@@ -1,0 +1,10 @@
+<form method="POST" action="/user/login">
+  <label>Username
+    <input name="user" type="text" placeholder="Username" />
+  </label>
+  <label>Password
+    <input type="password" name="pass" placeholder="Password" />
+  </label>
+  <input type="hidden" name="crumb" value="{{crumb}}"/>
+  <input class="button success" type="submit" value="Log in" />
+</form>

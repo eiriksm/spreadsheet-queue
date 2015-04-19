@@ -1,1 +1,80 @@
-just a whole lot of crap
+<div class="first">
+  <div class="bg"></div>
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>Sheeet</h1>
+      {{#if user}}
+        <h4>Welcome back!</h4>
+        <a href="/user" class="button radius dashboard">Go to my dashboard</a>
+      {{else}}
+        <div class="action-button">
+          <a href="/login" class="signup radius button">Sign up for free</a>
+          or <a href="#more-info" class="button radius more">Tell me more</a>
+        </div>
+      {{/if}}
+    </div>
+    <div class="signup">
+      <form method="POST" action="/user">
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
+        <input name="email" type="email" placeholder="Your email address" />
+        <input class="button success" type="submit" value="Submit" />
+      </form>
+    </div>
+  </div>
+</div>
+<div class="reasons row-wrapper" id="more-info">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>As simple as 1-2-3</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-2 medium-1 small-1 columns">
+      <h1>1</h1>
+    </div>
+    <div class="large-10 medium-11 small-11 columns">
+      <h2>Create a document</h2>
+      <p>Create a document in Google docs, and give the sheeet user access.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-2 medium-1 small-1 columns">
+      <h1>2</h1>
+    </div>
+    <div class="large-10 medium-11 small-11 columns">
+      <h2>Start to send data to sheeet</h2>
+      <p>Program your server or device to send data to sheeet.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-2 medium-1 small-1 columns">
+      <h1>3</h1>
+    </div>
+    <div class="large-10 medium-11 small-11 columns">
+      <h2>Relax and enjoy</h2>
+      <p>The data is starting to populate a spreadsheet, which means you can focus on creating fancy visualizations or just not worry about databases and backups.</p>
+    </div>
+  </div>
+</div>
+<div class="white">
+  <div class="row">
+    <div class="large-3 medium-3 small-12 columns">
+      <i class="fa fa-cloud"></i>
+      <h2>Store data privately, in the cloud</h2>
+      <p>This means you don't have to worry about vendor lock in. At least not with the endpoint you are sending the data to.</p>
+    </div>
+    <div class="large-3 medium-3 small-12 columns">
+      <i class="fa fa-lock"></i>
+      <h2>Secure transmission</h2>
+      <p>All communication is strictly https. If you are using a device that does not support https, we also accept data over regular http, which will be transferred securely to Google.</p>
+    </div>
+    <div class="large-3 small-12 columns">
+      <i class="fa fa-beer"></i>
+      <h2>Free for developers</h2>
+    </div>
+    <div class="large-3 small-12 columns">
+      <i class="fa fa-lightbulb-o"></i>
+      <h2>Perfect for internet of *</h2>
+    </div>
+  </div>
+</div>

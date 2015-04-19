@@ -1,5 +1,11 @@
 <form method="POST" action="/document">
-  <input name="title" type="text" />
-  <input name="id" type="text" />
-  <input type="submit" value="Submit">
+  <label>Title
+    <input placeholder="Title" name="title" type="text" />
+  </label>
+  <label>Google doc ID
+    <input id="id" name="id" placeholder="Google doc id" type="text" />
+  </label>
+  <a href="/user" class="button alert">Cancel</a>
+  <input class="button success" type="submit" value="Submit" />
+  <input type="hidden" name="crumb" value="{{crumb}}"/>
 </form>

@@ -1,0 +1,6 @@
+<h1>Are you sure you want to delete the document {{document.title}}</h1>
+<form method="POST" action="/user/docs/{{document.uuid}}/delete">
+  <a href="/user" class="button success">No, take me back</a>
+  <input class="button alert" type="submit" value="Yes, Delete" />
+  <input type="hidden" name="crumb" value="{{crumb}}"/>
+</form>

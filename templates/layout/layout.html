@@ -1,12 +1,15 @@
 <!DOCTYPE html>                                                                                                                                                   <html>
   <head>
-  <title>SHEEET</title>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/public/css/style.css">
+    {{> head}}
   </head>
+  {{#if front}}
+  <body class="is-front">
+  {{else}}
   <body>
+  {{/if}}
     <div class="off-canvas-wrap" data-offcanvas>
       <div class="inner-wrap">
+        {{#unless front}}
         <nav class="tab-bar">
           <section class="left-small">
             <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
@@ -17,7 +20,6 @@
           </section>
 
         </nav>
-
         <aside class="left-off-canvas-menu">
           <ul class="off-canvas-list">
             {{#if user}}
@@ -32,10 +34,13 @@
             <li><a href="/contact">Contact</a></li>
           </ul>
         </aside>
+        {{/unless}}
 
         <section class="main-section">
           {{#if front}}
-            {{{ content }}}
+            <div class="front">
+              {{{ content }}}
+            </div>
           {{else}}
           <div class="row">
             <div class="large-12 columns">
@@ -51,5 +56,35 @@
       <a class="exit-off-canvas"></a>
       </div>
     </div>
+    {{#if front}}
+    <script>
+    jQuery(document).ready(function($) {
+      var delta = 0;
+      var words = [
+        'logging temperatures',
+        'storing light levels',
+        'something else'
+      ];
+      setInterval(function() {
+        delta++;
+        if (delta > words.length - 1) {
+          delta = 0;
+        }
+        $('#ideas').text(words[delta]);
+      }, 2000);
+    });
+    </script>
+    {{else}}
+      <script>
+        jQuery(document).ready(function($) {
+          $('.timestamp').each(function() {
+            var ts = parseInt($(this).text(), 10);
+            if (ts && !isNaN(ts)) {
+              $(this).text(new Date(ts));
+            }
+          });
+        });
+      </script>
+    {{/if}}
   </body>
 </html>

@@ -1,0 +1,24 @@
+{{#if payment.id}}
+  You are on the pro plan
+  <form action="/user/payment/cancel" method="POST">
+    <input type="hidden" name="crumb" value="{{crumb}}"/>
+    <input type="submit" value="Cancel subscription">
+  </form>
+{{else}}
+<h1>Upgrade to the PRO plan</h1>
+<p>
+  Upgrading will give you unlimited documents.
+</p>
+  <form action="/user/payment" method="POST">
+    <input type="hidden" name="crumb" value="{{crumb}}"/>
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="{{stripeKey}}"
+      data-email="{{user.profile.email}}"
+      data-name="sheeet"
+      data-description="Pro plan ($2 per month)"
+      data-label="Secure checkout"
+      data-image="/logo.png">
+    </script>
+  </form>
+{{/if}}

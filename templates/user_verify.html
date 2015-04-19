@@ -1,0 +1,16 @@
+{{#if verified}}
+  <h1>Please reset your password</h1>
+  <form method="POST" action="/user/update">
+    <label>
+      Choose a password
+      <input type="password" name="password" placeholder="Password" />
+    </label>
+    <input class="button success" type="submit" value="Submit" />
+    <input type="hidden" name="crumb" value="{{crumb}}"/>
+  </form>
+{{else}}
+  <h1>An error</h1>
+  <p>
+    Sorry. Something bad must have happened here. If you got this address from an email, please make sure you are using the correct URL.
+  </p>
+{{/if}}

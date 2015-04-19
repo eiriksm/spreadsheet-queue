@@ -4,7 +4,7 @@ function sendToGoogleDocs(data, sheet, callback) {
 
   var _cb = function(err, rs) {
     if (callback) {
-      callback(err, res);
+      callback(err, rs);
     }
   };
 
@@ -12,9 +12,6 @@ function sendToGoogleDocs(data, sheet, callback) {
   if (!data.time) {
     data.time = Date.now();
   }
-  sheet.add({
-    time: data.time,
-    value: data.value
-  }, _cb);
+  sheet.add(data, _cb);
 
 }

@@ -1,18 +1,55 @@
 <h1>{{user.profile.email}}</h1>
 
 <h3>My documents</h3>
-{{#if documents}}
-  <ul>
-  {{#each documents}}
-    <li>
-      <a href="/user/docs/{{this.uuid}}">
-        {{this.title}}
-      </a>
-      <a href="/user/docs/{{this.uuid}}/delete">
-        <i class="fa fa-trash"></i>
-      </a>
-    </li>
-  {{/each}}
-  </ul>
-{{/if}}
-<a href="/documents/new">Create document</a>
+<div class="docs">
+  {{#if documents}}
+    <ul>
+    {{#each documents}}
+      <li>
+        <div class="document-container">
+          <div class="header">
+            <div class="status">
+              {{#if this.verified}}
+                <i class="fa fa-check-circle" title="Source is working"></i>
+              {{else}}
+                <i class="fa fa-question-circle" title="Status of source is unknown"></i>
+              {{/if}}
+            </div>
+            <a href="/user/docs/{{this.uuid}}">
+              {{this.title}}
+            </a>
+          </div>
+          <div class="metadata">
+            Last data sent:
+            {{#if this.updated}}
+              <span class="timestamp">{{this.updated}}</span>
+            {{else}}
+              No data sent
+            {{/if}}
+          </div>
+        </div>
+      </li>
+    {{/each}}
+    </ul>
+  {{else}}
+    You don't have any documents.
+  {{/if}}
+  <a class="success button" href="/documents/new">Create document</a>
+</div>
+<div class="payment">
+  <h3>My plan</h3>
+  {{#if user.pro}}
+    <p>You are already on the pro plan. Which is the most pro plan there is.</p>
+    <p>We sure would think it was a pity, but if you want you can cancel your subscription by clicking the button below.</p>
+    <p>
+      <a class="button alert" href="/user/payment">Cancel subscription</a>
+    </p>
+  {{else}}
+    <p>
+      You are on the reasonable free plan. If you want more documents, more features and possibly better karma, please feel free to click the button below to upgrade your plan.
+    </p>
+    <p>
+      <a class="button success" href="/user/payment">Upgrade to Pro.</a>
+    </p>
+  {{/if}}
+</div>

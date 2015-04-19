@@ -16,15 +16,20 @@ function get(key, callback) {
 }
 
 function set(key, value, callback) {
-  Data.create({
-    key: key,
-    value: value
+  Data.findOrCreate({
+    where: {
+      key: key
+    }
   })
-  .then(function() {
-    callback();
-  })
-  .catch(function(e) {
-    callback(e);
+  .spread(function(data, created) {
+    data.set('value', value);
+    data.save()
+    .then(function() {
+      callback();
+    })
+    .catch(function(e) {
+      callback(e);
+    });
   });
 }
 
@@ -52,12 +57,14 @@ function getAll(pattern, callback) {
   })
   .then(function(data) {
     var docs = [];
+    var fullDoc = [];
     for (var prop in data) {
       if (data.hasOwnProperty(prop)) {
         docs.push(data[prop].dataValues.value);
+        fullDoc.push(data[prop].dataValues);
       }
     }
-    callback(null, docs);
+    callback(null, docs, fullDoc);
   })
   .catch(function(e) {
     callback(e);

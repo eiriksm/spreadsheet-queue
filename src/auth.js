@@ -1,6 +1,9 @@
 'use strict';
 
 var cache = require('./cache');
+var async = require('async');
+var Boom = require('boom');
+var db = require('./pgdb');
 
 exports.register = function(plugin, options, next) {
   var secure = false;
@@ -43,18 +46,40 @@ exports.register = function(plugin, options, next) {
       handler: function(request, reply) {
         var account = request.auth.credentials;
         var sid = account.profile.id;
-        cache.set(sid, {
-          account: account
-        }, 0, function(err) {
+        var done = function(err, res) {
           if (err) {
-            reply(err);
+            reply(Boom.create(503, '', err));
+            request.log.error(err);
             return;
           }
-          request.auth.session.set({
-            sid: sid
-          });
-          reply.redirect('/');
-        });
+          reply.redirect('/user');
+        };
+        var email = account.profile.email;
+        async.waterfall([
+          function(callback) {
+            db.get(sid, callback);
+          },
+          function(data, callback) {
+            if (!data || !data.profile) {
+              // See if email adress is taken.
+              db.get(email, callback);
+              return;
+            }
+            callback(null, {});
+          },
+          function(data, callback) {
+            cache.set(sid, {
+              account: account
+            }, 0, callback);
+          },
+          function(callback) {
+            request.auth.session.set({
+              sid: sid
+            });
+            // Also make sure the email address is taken.
+            db.set(email, {email: email, id: sid}, callback);
+          }
+        ], done);
       }
     }
   });
