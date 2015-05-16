@@ -1,0 +1,8 @@
+<h1>Create your account</h1>
+<form method="POST" action="/user">
+  <input type="hidden" name="crumb" value="{{crumb}}"/>
+  <input name="email" type="email" placeholder="Your email address" />
+  <input class="button success" type="submit" value="Submit" />
+</form>
+<a href="/login">Sign up with Google</a>
+<p>Already registered? <a href="/user/login">Log in here</a></p>

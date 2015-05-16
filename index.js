@@ -37,6 +37,7 @@ config.mail = config.mail || process.env.SHEET_EMAIL;
 config.key = config.key || process.env.PRIVATE_KEY;
 config.mandrillUser = config.mandrillUser || process.env.MANDRILL_USER;
 config.mandrillPass = config.mandrillPass || process.env.MANDRILL_PASS;
+config.baseUrl = config.baseUrl || process.env.BASE_URL;
 
 var server = new Hapi.Server();
 var port = process.env.PORT || 8000;
@@ -297,14 +298,32 @@ server.route({
   method: 'POST',
   path: '/user/update',
   config: {
-    auth: 'session',
+    auth: {
+      strategy: 'session',
+      mode: 'try'
+    },
     validate: {
       payload: {
-        password: Joi.string().required()
+        password: Joi.string().required(),
+        password2: Joi.string().required(),
+        user: Joi.string().required()
       }
-    }
+    },
+    plugins: { 'hapi-auth-cookie': { redirectTo: false } }
   },
   handler: routes.userUpdate
+});
+server.route({
+  method: 'GET',
+  path: '/user/register',
+  config: {
+    auth: {
+      strategy: 'session',
+      mode: 'try'
+    },
+    plugins: { 'hapi-auth-cookie': { redirectTo: false } }
+  },
+  handler: routes.userRegister
 });
 server.route({
   method: 'GET',
@@ -334,7 +353,9 @@ server.route({
   method: 'GET',
   path: '/user_pending',
   handler: function(request, reply) {
-    return reply.view('user_pending', {});
+    return reply.view('user_pending', {
+      mail: request.query.mail
+    });
   }
 });
 server.route({
@@ -382,6 +403,7 @@ git.short(function (str) {
     partialsPath: __dirname + '/templates/partials',
     layoutPath: __dirname + '/templates/layout',
     layout: true,
+    helpersPath: './templates/helpers',
     isCached: (process.env.NODE_ENV === 'production'),
     context: {
       rev: gitRev,

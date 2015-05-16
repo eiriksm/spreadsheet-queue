@@ -41,7 +41,7 @@ module.exports = function(config) {
       }
       reply.view('user_verify', {
         verified: true,
-        user: result
+        account: result
       });
     };
     async.waterfall([
@@ -55,7 +55,7 @@ module.exports = function(config) {
             callback();
           }
           else {
-            request.log.info('User used a hash that did not compare to the original.', usedHash, expectedHash);
+            request.log.error('User used a hash that did not compare to the original.', usedHash, expectedHash);
             reply.view('user_verify', {
               verified: false
             });
@@ -88,9 +88,6 @@ module.exports = function(config) {
         cache.set(id, {
           account: account
         }, 0, function(err) {
-          request.auth.session.set({
-            sid: id
-          });
           callback(err, account);
         });
       },

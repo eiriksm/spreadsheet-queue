@@ -5,8 +5,13 @@
       Choose a password
       <input type="password" name="password" placeholder="Password" />
     </label>
+    <label>
+      Verify password
+      <input type="password" name="password2" placeholder="Password" />
+    </label>
     <input class="button success" type="submit" value="Submit" />
     <input type="hidden" name="crumb" value="{{crumb}}"/>
+    <input type="hidden" name="user" value="{{account.profile.id}}" />
   </form>
 {{else}}
   <h1>An error</h1>

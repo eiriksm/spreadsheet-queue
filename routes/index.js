@@ -19,6 +19,7 @@ module.exports = {
   userPaymentPost: require('./userPaymentPostHandler'),
   userPaymentCancelPost: require('./userPaymentCancelPostHandler'),
   userPost: require('./userPostHandler'),
+  userRegister: require('./userRegisterHandler'),
   userUpdate: require('./userUpdateHandler'),
   userValidate: require('./userValidateHandler')
 };

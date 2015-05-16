@@ -56,8 +56,7 @@ module.exports = function(config) {
           var timestamp = Date.now();
           var hashBase = util.format('%s-to-the-%d-to-the%s', id, timestamp, config.mandrillUser);
           bcrypt.hash(hashBase, 8, function(bErr, hash) {
-            console.log(hashBase, hash);
-            var verifyLink = util.format('http://localhost:8000/verify/%s/%d/%s', id, timestamp, hash);
+            var verifyLink = util.format(config.baseUrl + '/verify/%s/%d/%s', id, timestamp, hash);
             var mailOpts = {
               from: 'Noreply sheeeet <eirik@e-o.no>',
               to: email,
