@@ -19,7 +19,8 @@ module.exports = function(request, reply) {
         return;
       }
       reply.view('test_document', {
-        document: d
+        document: d,
+        user: request.auth.credentials
       });
     });
   }

@@ -41,7 +41,10 @@ module.exports = function(config) {
         }
       }
       // Reply this early, to let the user know the request was queued.
-      reply('')
+      reply(JSON.stringify({
+        status: 'OK',
+        message: 'Value queued'
+      }, null, 4))
       .code(201);
       appendRow(request.payload, sheets[id], function(err) {
         if (err) {
@@ -71,4 +74,4 @@ module.exports = function(config) {
 
     });
   };
-}
+};

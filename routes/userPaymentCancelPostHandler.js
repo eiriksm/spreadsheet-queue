@@ -1,5 +1,6 @@
 'use strict';
 var db = require('../src/pgdb');
+var Boom = require('boom');
 
 var stripe;
 
@@ -12,10 +13,14 @@ module.exports = function(config) {
     var dbKey = user.profile.id + ':stripe';
 
     db.get(dbKey, function(e, d) {
+      if (e || !d.id) {
+        request.log.warn('Either error or no id on cancel sub. Not good, not good', e, d);
+        return reply(Boom.create(500, e));
+      }
       stripe.customers.cancelSubscription(d.id, d.subId, function(se, sd) {
-        console.log(se, sd);
+        // @todo. Needs more logic, no?
         if (sd.status === 'canceled') {
-          db.del(dbKey, function(de) {
+          db.del(dbKey, function() {
             reply.redirect('/user');
           });
         }

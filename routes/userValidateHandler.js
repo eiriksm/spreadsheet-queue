@@ -39,6 +39,7 @@ module.exports = function(config) {
         request.log.error(err);
         return;
       }
+      console.log(result);
       reply.view('user_verify', {
         verified: true,
         account: result
@@ -91,10 +92,12 @@ module.exports = function(config) {
           callback(err, account);
         });
       },
-      //function(data, callback) {
-      //  // Delete the verify object.
-      //  db.del('verify-' + id, callback);
-      //}
+      function(data, callback) {
+        // Delete the verify object.
+        db.del('verify-' + id, function(err) {
+          callback(err, data);
+        });
+      }
     ], done);
 
   };

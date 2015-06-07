@@ -4,6 +4,10 @@ var path = require('path');
 var glob = require('glob');
 var async = require('async');
 
+function getPath(key) {
+  return path.join('.data', key + '.json');
+}
+
 module.exports = {
   getAll: function(pattern, callback) {
     var p = path.join('.data', '**' + pattern + '-**');
@@ -60,6 +64,3 @@ module.exports = {
   }
 };
 
-function getPath(key) {
-  return path.join('.data', key + '.json');
-}

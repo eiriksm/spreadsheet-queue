@@ -7,35 +7,39 @@
   {{else}}
   <body>
   {{/if}}
-    <div class="off-canvas-wrap" data-offcanvas>
+  <div class="top">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="/">Sheeets</a></h1>
+        </li>
+         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+          {{#if user}}
+            <li class="show-for-small-only"><label><i class="fa fa-user"></i> {{user.profile.email}}</label></li>
+            <li><a href="/logout">Log out</a></li>
+            <li><a href="/user">My account</a></li>
+            <li class="show-for-small-only divider"></li>
+          {{else}}
+            <li><label><a href="/user"><i class="fa fa-user"></i></a></label></li>
+            <a class="button tiny info" href="/user/login">Log in</a>
+          {{/if}}
+        </ul>
+        <ul class="left">
+          <li><a href="/about">About</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+        </ul>
+      </section>
+    </nav>
+    <div class="text-right column medium-4">
+    </div>
+  </div>
+    <div>
       <div class="inner-wrap">
-        {{#unless front}}
-        <nav class="tab-bar">
-          <section class="left-small">
-            <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-          </section>
-
-          <section class="middle tab-bar-section">
-            <h1 class="title"><a href="/">SHEEET</a></h1>
-          </section>
-
-        </nav>
-        <aside class="left-off-canvas-menu">
-          <ul class="off-canvas-list">
-            {{#if user}}
-              <li><label>{{user.profile.email}}</label></li>
-              <li><a href="/user">Account</a></li>
-              <li><a href="/logout">Log out</a></li>
-            {{else}}
-            <li><label>User</label></li>
-              <li><a href="/login">Log in</a></li>
-            {{/if}}
-            <li><label>About</label></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-        </aside>
-        {{/unless}}
-
         <section class="main-section">
           {{#if front}}
             <div class="front">
@@ -57,23 +61,6 @@
       </div>
     </div>
     {{#if front}}
-    <script>
-    jQuery(document).ready(function($) {
-      var delta = 0;
-      var words = [
-        'logging temperatures',
-        'storing light levels',
-        'something else'
-      ];
-      setInterval(function() {
-        delta++;
-        if (delta > words.length - 1) {
-          delta = 0;
-        }
-        $('#ideas').text(words[delta]);
-      }, 2000);
-    });
-    </script>
     {{else}}
       <script>
         jQuery(document).ready(function($) {

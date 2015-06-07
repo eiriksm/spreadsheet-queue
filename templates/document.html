@@ -1,4 +1,4 @@
-
+<h1>Edit document</h1>
 <form method="POST" action="/document/{{document.uuid}}">
   <label>Title
     <input placeholder="Title" name="title" type="text" value="{{document.title}}" />
@@ -32,7 +32,8 @@
       </p>
     {{/if}}
   </label>
-  <a href="/user" class="button alert">Cancel</a>
+  <pre><code>{{curlExample}}</code></pre>
+  <a href="/user" class="button alert">Back</a>
   <input class="button success" type="submit" value="Update" />
   <input type="hidden" name="crumb" value="{{crumb}}"/>
 </form>

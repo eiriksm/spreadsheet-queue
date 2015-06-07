@@ -3,7 +3,6 @@ var async = require('async');
 var bcrypt = require('bcrypt');
 var Boom = require('boom');
 
-var cache = require('../src/cache');
 var db = require('../src/pgdb');
 
 module.exports = function(request, reply) {
@@ -16,11 +15,10 @@ module.exports = function(request, reply) {
   // Check the login against the actual credentials.
   var done = function(err, ok, userData) {
     if (err) {
-      reply(Boom.create(500, err));
+      reply(Boom.create(403, err));
       return;
     }
     var sid = userData.id;
-    var email = user;
     async.waterfall([
       function(callback) {
         request.auth.session.set({
@@ -48,7 +46,6 @@ module.exports = function(request, reply) {
         callback(new Error('ENOPASS'));
         return;
       }
-      console.log(pass, data.pass)
       bcrypt.compare(pass, data.pass, function(err, res) {
         return callback(err, res, data);
       });

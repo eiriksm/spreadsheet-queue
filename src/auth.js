@@ -46,7 +46,7 @@ exports.register = function(plugin, options, next) {
       handler: function(request, reply) {
         var account = request.auth.credentials;
         var sid = account.profile.id;
-        var done = function(err, res) {
+        var done = function(err) {
           if (err) {
             reply(Boom.create(503, '', err));
             request.log.error(err);

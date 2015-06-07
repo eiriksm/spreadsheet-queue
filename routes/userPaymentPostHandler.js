@@ -24,7 +24,7 @@ module.exports = function(config) {
           subId = customer.subscriptions.data[0].id;
         }
         db.set(user.profile.id + ':stripe', {
-          default_card: customer.default_card,
+          default_card: customer.default_card, // eslint-disable-line
           id: customer.id,
           subId: subId
         }, function(dbSetErr) {

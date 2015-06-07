@@ -13,6 +13,10 @@ module.exports = function(request, reply) {
     var data = request.payload;
     data.uuid = id;
     db.set(key, data, function(e) {
+      if (e) {
+        // @todo. Handle better.
+        request.log.warn('Error in db.set in userDocUpdateHandler', e);
+      }
       reply.redirect('/user');
       return;
     });

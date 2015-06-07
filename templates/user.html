@@ -7,25 +7,32 @@
     {{#each documents}}
       <li>
         <div class="document-container">
-          <div class="header">
-            <div class="status">
-              {{#if this.verified}}
-                <i class="fa fa-check-circle" title="Source is working"></i>
-              {{else}}
-                <i class="fa fa-question-circle" title="Status of source is unknown"></i>
-              {{/if}}
+          <div class="row">
+            <div class="small-2 medium-1 column text-center">
+              <i class="fa-table fa fa-2x"></i>
             </div>
-            <a href="/user/docs/{{this.uuid}}">
-              {{this.title}}
-            </a>
-          </div>
-          <div class="metadata">
-            Last data sent:
-            {{#if this.updated}}
-              <span class="timestamp">{{this.updated}}</span>
-            {{else}}
-              No data sent
-            {{/if}}
+            <div class="small-10 medium-11 column">
+              <div class="header">
+                <a href="/user/docs/{{this.uuid}}">
+                  {{this.title}}
+                </a>
+              </div>
+              <div class="metadata">
+                <div class="status">
+                  {{#if this.verified}}
+                    <i class="fa fa-check-circle" title="Source is working"></i>
+                  {{else}}
+                    <i class="fa fa-question-circle" title="Status of source is unknown"></i>
+                  {{/if}}
+                </div>
+                Last data sent:
+                {{#if this.updated}}
+                  <span class="timestamp">{{this.updated}}</span>
+                {{else}}
+                  No data sent
+                {{/if}}
+              </div>
+            </div>
           </div>
         </div>
       </li>
@@ -49,7 +56,7 @@
       You are on the reasonable free plan. If you want more documents, more features and possibly better karma, please feel free to click the button below to upgrade your plan.
     </p>
     <p>
-      <a class="button success" href="/user/payment">Upgrade to Pro.</a>
+      <a class="button success" href="/user/payment">Upgrade to Pro</a>
     </p>
   {{/if}}
 </div>

@@ -9,43 +9,44 @@ function Cache(data, expire) {
 
 module.exports = {
   get: function(cid, callback) {
+    var d;
     // First try in-mem.
-    var _callback = function(e, d) {
-      if (!e & d && d.expire && d.expire > Date.now()) {
+    var cb = function(e, data) {
+      if (!e & d && data.expire && data.expire > Date.now()) {
         callback();
         return;
       }
-      d = d || {};
-      cache[cid] = d;
-      callback(e, d.data);
+      data = data || {};
+      cache[cid] = data;
+      callback(e, data.data);
     };
     if (cache[cid]) {
-      var d = cache[cid];
+      d = cache[cid];
       try {
         d.data = JSON.parse(d.data);
       }
       catch (er) {
         // Just ignore that. Probably means the object is parsed.
       }
-      _callback(null, d);
+      cb(null, d);
       return;
     }
     // Then try "db".
-    db.get(cid, function(e, d) {
+    db.get(cid, function(e, data) {
       if (e) {
-        _callback(e);
+        cb(e);
         return;
       }
-      if (d && d.data) {
+      if (data && data.data) {
         try {
-          d.data = JSON.parse(d.data);
+          data.data = JSON.parse(data.data);
         }
         catch (er) {
-          _callback(er);
+          cb(er);
           return;
         }
       }
-      _callback(e, d);
+      cb(e, data);
     });
   },
   set: function(cid, data, expire, callback) {

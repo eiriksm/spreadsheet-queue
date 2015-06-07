@@ -23,6 +23,9 @@ module.exports = function(request, reply) {
   var id;// = user.profile.id;
   // Do some processing.
   var done = function(err) {
+    if (err) {
+      request.log.alert(err);
+    }
     reply.redirect('/user');
   };
   var hash;

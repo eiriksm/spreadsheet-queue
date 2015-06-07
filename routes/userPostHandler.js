@@ -4,7 +4,7 @@ var db = require('../src/pgdb');
 var uuid = require('uuid');
 var Boom = require('boom');
 var nodemailer = require('nodemailer');
-var wellknown = require('nodemailer-wellknown');
+require('nodemailer-wellknown');
 var bcrypt = require('bcrypt');
 
 module.exports = function(config) {
@@ -63,7 +63,7 @@ module.exports = function(config) {
               subject: 'Please verify your account on sheeet',
               text: 'Please click this link: ' + verifyLink
             };
-            transporter.sendMail(mailOpts, function(mailErr, info) {
+            transporter.sendMail(mailOpts, function(mailErr) {
               if (mailErr) {
                 reply(Boom.create(500, 'A problem', mailErr));
                 return;

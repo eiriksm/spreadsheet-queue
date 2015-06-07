@@ -1,8 +1,9 @@
 {{#if payment.id}}
+  <h1>Cancel subscription?</h1>
   You are on the pro plan
   <form action="/user/payment/cancel" method="POST">
     <input type="hidden" name="crumb" value="{{crumb}}"/>
-    <input type="submit" value="Cancel subscription">
+    <input type="submit" value="Cancel subscription" class="button alert">
   </form>
 {{else}}
 <h1>Upgrade to the PRO plan</h1>

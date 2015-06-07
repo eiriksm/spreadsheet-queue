@@ -21,7 +21,7 @@ function set(key, value, callback) {
       key: key
     }
   })
-  .spread(function(data, created) {
+  .spread(function(data) {
     data.set('value', value);
     data.save()
     .then(function() {

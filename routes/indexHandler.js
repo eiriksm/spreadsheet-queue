@@ -1,3 +1,4 @@
+'use strict';
 module.exports = function(request, reply) {
   var user = false;
   if (request.auth.isAuthenticated) {
@@ -8,4 +9,4 @@ module.exports = function(request, reply) {
     user: user,
     front: true
   });
-}
+};

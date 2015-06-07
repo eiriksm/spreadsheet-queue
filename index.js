@@ -1,4 +1,5 @@
 'use strict';
+var path = require('path');
 var bunyan = require('bunyan');
 var git = require('git-rev');
 var logger = bunyan.createLogger({
@@ -6,15 +7,13 @@ var logger = bunyan.createLogger({
   level: process.env.LOG_LEVEL || 'debug'
 });
 var Hapi = require('hapi');
-var Boom = require('boom');
-var util = require('util');
 var Joi = require('joi');
-var uuid = require('uuid');
+var hapiSwagger = require('hapi-swagger');
+var pack = require('./package');
+var swaggerOptions = {
+  apiVersion: pack.version
+};
 var gitRev;
-var sheets = {};
-var spreadsheet = require('google-spreadsheet-append-es5');
-var checkAccess = require('./src/checkAccess');
-var appendRow = require('./src/appendrow');
 
 var config;
 try {
@@ -42,11 +41,6 @@ config.baseUrl = config.baseUrl || process.env.BASE_URL;
 var server = new Hapi.Server();
 var port = process.env.PORT || 8000;
 server.connection({ port: port });
-var access = {
-  1: {
-    '1oEww5nwNpkvbeNYPs_QpxPfbEGBit05zjLd4iN7siDY': true
-  }
-};
 var conf = {
   register: require('hapi-bunyan'),
   options: {
@@ -62,13 +56,28 @@ var secure = false;
 if (process.env.NODE_ENV === 'production') {
   secure = true;
 }
-var pack = require('./package'),
-    swaggerOptions = {
-        apiVersion: pack.version
-    };
+server.ext('onPreResponse', function (request, reply) {
+  var response = request.response;
+  if (!response.isBoom) {
+    return reply.continue();
+  }
+
+  // Replace error with friendly HTML
+
+  var error = response;
+  var ctx = {
+    message: (error.output.statusCode === 404 ? 'page not found' : 'Something went wrong'),
+    code: error.output.statusCode,
+    error: error.output.payload.error
+  };
+
+  var r = reply.view('error', ctx).hold();
+  r.code(error.output.statusCode)
+  .send();
+});
 
 server.register({
-    register: require('hapi-swagger'),
+    register: hapiSwagger,
     options: swaggerOptions
 }, function (err) {
     if (err) {
@@ -83,7 +92,7 @@ server.register({
     cookieOptions: {
       isSecure: secure
     },
-    skip: function (request, reply) {
+    skip: function (request) {
       if (request.route.path === '/message/{user}/{id}') {
         return true;
       }
@@ -100,8 +109,22 @@ server.register([
   {register: require('bell')},
   {register: require('./src/auth')}], function(err) {
     if (err) {
-      throw(err);
+      throw err;
     }
+});
+server.route({
+  method: 'GET',
+  path: '/pricing',
+  handler: function (request, reply) {
+    return reply.view('pricing');
+  }
+});
+server.route({
+  method: 'GET',
+  path: '/about',
+  handler: function (request, reply) {
+    return reply.view('about');
+  }
 });
 server.route({
   method: 'GET',
@@ -151,7 +174,7 @@ server.route({
   config: {
     auth: 'session'
   },
-  handler: routes.userDoc
+  handler: routes.userDoc(config)
 });
 server.route({
   method: 'GET',
@@ -387,7 +410,7 @@ server.ext('onRequest', function (request, reply) {
     request.connection.info.protocol = 'https';
   }
 
-  return reply['continue']();
+  return reply.continue();
 });
 // Get git version first.
 git.short(function (str) {
@@ -399,11 +422,11 @@ git.short(function (str) {
     engines: {
       html: require('handlebars')
     },
-    path: __dirname + '/templates',
-    partialsPath: __dirname + '/templates/partials',
-    layoutPath: __dirname + '/templates/layout',
+    path: path.join(__dirname, 'templates'),
+    partialsPath: path.join(__dirname, 'templates', 'partials'),
+    layoutPath: path.join(__dirname, 'templates', 'layout'),
     layout: true,
-    helpersPath: './templates/helpers',
+    helpersPath: path.join(__dirname, 'templates', 'helpers'),
     isCached: (process.env.NODE_ENV === 'production'),
     context: {
       rev: gitRev,

@@ -2,41 +2,23 @@
 @import "normalize";
 @import "foundation";
 @import "font-awesome";
+input[type="submit"],
+button,
+.button {
+  @include button-style($radius:true);
+}
+
 html, body {
   min-height: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 .footer {
   background: $primary-color;
   padding: 2rem;
   color: $white;
 }
-.reasons {
-  background: $primary-color;
-  color: $white;
-  h2 {
-    color: $white;
-  }
-  .columns {
-    padding: 2em 1em;
-  }
-  padding: 1em;
-  h1 {
-    text-transform: uppercase;
-    color: $white;
-    text-shadow: 0 0 3px $black;
-  }
-  .large-2 h1 {
-    padding: 10px;
-    padding-top: 17px;
-    text-align: center;
-    background: $yellow;
-    color: #fff;
-    border-radius: 50px;
-    width: 100px;
-    height: 100px;
-  }
-}
 .first {
+  background: $secondary-color;
   code {
     width: 250px;
     display: inline-block;
@@ -44,7 +26,7 @@ html, body {
     background: $black;
   }
   height: 500px;
-  height: 80vh;
+  min-height: 80vh;
   position: relative;
   text-align: center;
   .row {
@@ -69,13 +51,26 @@ html, body {
   }
 
 }
-.white {
+.signup-row {
+  background: $black;
+  color: $white;
+  h1 {
+    color: $white;
+  }
+  padding: 2em 0;
+}
+.reasons {
+  img {
+    margin: auto;
+    border: 2px solid $success-color;
+  }
   background: $white;
   text-align: center;
   i {
     font-size: 8em;
     color: $red;
   }
+  padding: 2em 0;
 }
 .is-front {
   .off-canvas-wrap {
@@ -88,16 +83,19 @@ html, body {
     z-index: 1;
   }
 }
-.document-container {
-  border: 1px solid lighten($primary-color, 60%);
-  padding: 0 5px;
+.document-container .row {
+  border-bottom: $secondary-color 1px solid;
+  .small-1 {
+    padding-top: 10px;
+  }
+  margin: 5px;
+  paddding: 5px;
   .header {
-    border-bottom: 1px solid lighten($primary-color, 60%);
     text-transform: uppercase;
     font-size: 1.2em;
-    .status {
-      float: right;
-    }
+  }
+  .status {
+    display: inline-block;
   }
   .metadata {
     color: lighten($black, 50%);
@@ -114,20 +112,40 @@ html, body {
     margin: 1em 0;
   }
 }
+.main-section .stripe-button-el:disabled,
+.main-section .stripe-button-el:disabled span{
+  color: $white;
+  background: $primary-color;
+}
 .main-section .stripe-button-el,
 .main-section .stripe-button-el:focus {
   background: none;
   @include button-base;
   @include button-size;
-  @include button-style;
+  @include button-style($radius:true);
+  box-shadow: none;
   span,
   span:hover,
   span:focus,
   span:active {
+    min-height: 18px !important;
+    padding: 0;
+    height: auto;
     background: none;
     line-height: inherit;
     font: inherit;
     box-shadow: none;
     text-shadow: none;
   }
+}
+.top {
+  .top-bar-section li:not(.has-form) a:not(.button),
+  .top-bar-section ul li,
+  .top-bar {
+    background: $primary-color;
+  }
+}
+.top-bar-section ul li > label,
+.top-bar-section ul li > a {
+  padding-left: 1rem;
 }

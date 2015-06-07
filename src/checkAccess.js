@@ -16,6 +16,11 @@ module.exports = function(request, callback) {
     callback(null, false);
     return;
   }
+  if (!headers['content-type'] || headers['content-type'] !== 'application/json') {
+    request.log.info('User is trying to send, but not using JSON (as content type)');
+    callback(null, false);
+    return;
+  }
   checkIfHeaderIsCorrect(headers['x-sheet'], id, function(he, valid) {
     if (he) {
       request.log.debug('Had a header error', he);
