@@ -190,7 +190,7 @@ server.route({
   config: {
     validate: {
       payload: Joi.object({
-        time: Joi.date().optional()
+        time: Joi.number().integer().optional()
           .description('A UNIX timestamp. Defaults to current timestamp of server if not specified. This will be added only if you have specified a "time" column in your spreadsheet.'),
         value: Joi.any().optional()
           .description('The value of the message. This can be nothing or anything. It has to correspond to a column in your spreadsheet. You can have as many values as you want, IE: {"value": 123,"tag": "temperature"}')
