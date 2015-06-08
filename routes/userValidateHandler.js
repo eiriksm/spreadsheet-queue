@@ -39,7 +39,6 @@ module.exports = function(config) {
         request.log.error(err);
         return;
       }
-      console.log(result);
       reply.view('user_verify', {
         verified: true,
         account: result
