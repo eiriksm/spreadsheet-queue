@@ -1,5 +1,4 @@
 'use strict';
-module.exports = sendToGoogleDocs;
 
 function sendToGoogleDocs(data, sheet, callback) {
 
@@ -16,3 +15,5 @@ function sendToGoogleDocs(data, sheet, callback) {
   sheet.add(data, cb);
 
 }
+
+module.exports = sendToGoogleDocs;
