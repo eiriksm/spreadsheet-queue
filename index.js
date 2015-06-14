@@ -115,15 +115,41 @@ server.register([
 server.route({
   method: 'GET',
   path: '/pricing',
+  config: {
+    auth: {
+      strategy: 'session',
+      mode: 'try'
+    },
+    plugins: { 'hapi-auth-cookie': { redirectTo: false } }
+  },
   handler: function (request, reply) {
-    return reply.view('pricing');
+    var user = false;
+    if (request.auth.isAuthenticated) {
+      user = request.auth.credentials;
+    }
+    return reply.view('pricing', {
+      user: user
+    });
   }
 });
 server.route({
   method: 'GET',
   path: '/about',
+  config: {
+    auth: {
+      strategy: 'session',
+      mode: 'try'
+    },
+    plugins: { 'hapi-auth-cookie': { redirectTo: false } }
+  },
   handler: function (request, reply) {
-    return reply.view('about');
+    var user = false;
+    if (request.auth.isAuthenticated) {
+      user = request.auth.credentials;
+    }
+    return reply.view('about', {
+      user: user
+    });
   }
 });
 server.route({
