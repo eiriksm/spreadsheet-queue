@@ -422,6 +422,12 @@ server.route({
 server.route({
   path: '/public/{path*}',
   method: 'GET',
+  config: {
+    cache: {
+      privacy: 'public',
+      expiresIn: 24 * 60 * 60 * 1000 // 1 day
+    }
+  },
   handler: {
     directory: {
       path: './public',
