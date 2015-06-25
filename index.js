@@ -462,7 +462,9 @@ git.short(function (str) {
     isCached: (process.env.NODE_ENV === 'production'),
     context: {
       rev: gitRev,
-      front: false
+      front: false,
+      googleUser: config.mail,
+      appName: config.appName
     }
   });
   db.init(config, function() {
