@@ -8,7 +8,7 @@
 {{else}}
 <h1>Upgrade to the PRO plan</h1>
 <p>
-  Upgrading will give you unlimited documents.
+  Upgrading your plan while {{appName}} is in beta will not give you other benefits than good karma.
 </p>
   <form action="/user/payment" method="POST">
     <input type="hidden" name="crumb" value="{{crumb}}"/>
@@ -16,10 +16,10 @@
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="{{stripeKey}}"
       data-email="{{user.profile.email}}"
-      data-name="sheeet"
+      data-name="{{appName}}"
       data-description="Pro plan ($2 per month)"
       data-label="Secure checkout"
-      data-image="/logo.png">
+      data-image="/public/icon.png">
     </script>
   </form>
 {{/if}}
