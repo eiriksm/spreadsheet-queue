@@ -175,8 +175,8 @@ server.route({
 });
 
 server.route({
-  path: "/logout",
-  method: "GET",
+  path: '/logout',
+  method: 'GET',
   config: {
     handler: routes.logout,
     auth: 'session'

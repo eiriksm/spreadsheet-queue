@@ -32,10 +32,29 @@
       </p>
     {{/if}}
   </label>
-  <pre><code>{{curlExample}}</code></pre>
-  <a href="/user" class="button alert">Back</a>
-  <input class="button success" type="submit" value="Update" />
-  <input type="hidden" name="crumb" value="{{crumb}}"/>
+  <h3>Usage</h3>
+  <label>
+    Document ID
+    <p>
+      {{document.uuid}}
+    </p>
+  </label>
+  <label>
+    x-sheeet header
+    <p>{{header}}</p>
+  </label>
+  <label>
+    Your user ID
+    <p>{{user.profile.id}}</p>
+  </label>
+  <label>
+    Document URL endpoint
+    <p>{{url}}</p>
+  </label>
+  <label>
+    CURL usage example
+    <pre class="code">{{curlExample}}</pre>
+  </label>
 </form>
 <h3 class="subheader">Danger zone</h3>
 <p>If you want to delete this document, this is the place to click.</p>

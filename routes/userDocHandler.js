@@ -25,12 +25,20 @@ module.exports = function(config) {
         var header = crypto.createHash('sha1')
         .update(key)
         .digest('hex');
-        var curlExample = util.format('curl -i -H "Content-Type: application/json" -H "x-sheeet: %s" "%s/message/%s/%s" --data "{\\"value\\": 123}"',
-                                      header, config.baseUrl, request.auth.artifacts.sid, encodeURIComponent(request.params.doc));
+        var url = util.format('%s/message/%s/%s', config.baseUrl, request.auth.artifacts.sid, encodeURIComponent(request.params.doc));
+        var curlExample = util.format('curl -i "%s" \\%s' +
+                                      '-H "Content-Type: application/json" \\%s' +
+                                      '-H "x-sheeet: %s"  \\%s' +
+                                      '--data "{\\"value\\": 123}"',
+                                      url, '\n',
+                                      '\n',
+                                      header, '\n');
         reply.view('document', {
           user: user,
           document: d,
-          curlExample: curlExample
+          curlExample: curlExample,
+          header: header,
+          url: url
         });
       });
     }
