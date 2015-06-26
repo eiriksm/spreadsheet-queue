@@ -16,7 +16,7 @@ exports.register = function(plugin, options, next) {
     cookie: 'sid-sheets',
     redirectTo: '/',
     isSecure: secure,
-    validateFunc: function(session, callback) {
+    validateFunc: function(request, session, callback) {
       cache.get(session.sid, function(err, cached) {
         if (err) {
           return callback(err, false);
