@@ -49,7 +49,7 @@ module.exports = function(config) {
       appendRow(request.payload, sheets[id], function(err) {
         if (err) {
           request.log.error(err);
-          return reply(Boom.create(500, 'Problemos'));
+          // @todo. We should
         }
         // Make sure we put a tag on the file, in case it is not marked as
         // already working.
@@ -57,6 +57,7 @@ module.exports = function(config) {
         db.get(key, function(dbErr, doc) {
           if (dbErr) {
             // That is not good. But ignore for now.
+            // @todo. Do something here?
             request.log.error(dbErr);
             return;
           }
@@ -66,7 +67,7 @@ module.exports = function(config) {
           doc.updated = Date.now();
           db.set(key, doc, function(setErr) {
             if (setErr) {
-              console.log(setErr);
+              request.log.error(setErr);
             }
           });
         });
