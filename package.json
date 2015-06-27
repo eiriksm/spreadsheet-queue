@@ -4,7 +4,7 @@
   "description": "sheeet",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && mocha",
+    "test": "npm run lint && lab",
     "start": "node index",
     "lint": "eslint . && echo 'Lint passed'"
   },
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "browserify": "^10.2.4",
-    "eslint": "^0.23.0",
+    "eslint": "^0.24.0",
     "font-awesome": "^4.3.0",
     "foundation.scss": "^5.5.1",
     "gulp": "^3.9.0",
@@ -55,7 +55,7 @@
     "gulp-livereload": "^3.8.0",
     "gulp-sass": "^2.0.2",
     "gulp-sourcemaps": "^1.5.2",
-    "mocha": "^2.2.5",
+    "lab": "^5.11.1",
     "vinyl-source-stream": "^1.1.0"
   }
 }
