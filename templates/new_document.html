@@ -6,6 +6,21 @@
   <label>Google doc ID
     <input id="id" name="id" placeholder="Google doc id" type="text" />
   </label>
+  <label>
+    {{appName}} user (to give access)
+    <a href="#" data-reveal-id="gif-modal"><i class="fa fa-question-circle"></i></a>
+    <div id="gif-modal" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <div class="text-center">
+        <img src="/public/img/share-info.gif">
+        <p>Make sure you share your document with the correct user</p>
+        <p>Also make sure you have the column headers for time and value</p>
+      </div>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+    <p>
+      {{googleUser}}
+    </p>
+  </label>
   <a href="/user" class="button alert">Cancel</a>
   <input class="button success" type="submit" value="Submit" />
   <input type="hidden" name="crumb" value="{{crumb}}"/>
