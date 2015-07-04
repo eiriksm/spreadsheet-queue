@@ -375,7 +375,7 @@ body {
   background: #fff;
   color: #222;
   cursor: auto;
-  font-family: 'Lato', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
   line-height: 1.5;
@@ -1226,7 +1226,7 @@ select {
       background: #EFEFEF;
       color: #222222;
       display: block;
-      font-family: 'Lato', sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
       font-size: 1rem;
       padding: 1rem; }
       .accordion .accordion-navigation > a:hover, .accordion dd > a:hover {
@@ -1624,7 +1624,7 @@ button, .button {
   border-style: solid;
   border-width: 0;
   cursor: pointer;
-  font-family: 'Lato', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 1.25rem;
@@ -3289,7 +3289,7 @@ label.error {
 
 .label {
   display: inline-block;
-  font-family: 'Lato', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-weight: normal;
   line-height: 1;
   margin-bottom: auto;
@@ -3666,7 +3666,7 @@ ul.pagination {
   .pricing-table .title {
     background-color: #333333;
     color: #EEEEEE;
-    font-family: 'Lato', sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
     font-size: 1rem;
     font-weight: normal;
     padding: 0.9375rem 1.25rem;
@@ -3674,7 +3674,7 @@ ul.pagination {
   .pricing-table .price {
     background-color: #F6F6F6;
     color: #333333;
-    font-family: 'Lato', sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
     font-size: 2rem;
     font-weight: normal;
     padding: 0.9375rem 1.25rem;
@@ -3928,7 +3928,7 @@ ul.pagination {
 
 .side-nav {
   display: block;
-  font-family: 'Lato', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   list-style-position: outside;
   list-style-type: none;
   margin: 0;
@@ -3949,7 +3949,7 @@ ul.pagination {
         color: #55789b; }
     .side-nav li.active > a:first-child:not(.button) {
       color: #55789b;
-      font-family: 'Lato', sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
       font-weight: normal; }
     .side-nav li.divider {
       border-top: 1px solid;
@@ -4067,7 +4067,7 @@ ul.pagination {
   .sub-nav dt, .sub-nav dd, .sub-nav li {
     color: #999999;
     float: left;
-    font-family: 'Lato', sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
     font-size: 0.875rem;
     font-weight: normal;
     margin-left: 1rem;
@@ -4239,7 +4239,7 @@ table {
       display: block;
       background-color: #EFEFEF;
       color: #222222;
-      font-family: 'Lato', sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
       font-size: 1rem;
       padding: 1rem 2rem; }
       .tabs dd > a:hover, .tabs .tab-title > a:hover {
@@ -4401,7 +4401,7 @@ meta.foundation-mq-topbar {
 /* Wrapped around .top-bar to contain to grid width */
 .contain-to-grid {
   width: 100%;
-  background: #333333; }
+  background: #1E1E20; }
   .contain-to-grid .top-bar {
     margin-bottom: 0; }
 
@@ -4425,7 +4425,7 @@ meta.foundation-mq-topbar {
       z-index: 98; }
 
 .top-bar {
-  background: #333333;
+  background: #1E1E20;
   height: 2.8125rem;
   line-height: 2.8125rem;
   margin-bottom: 0;
@@ -4508,7 +4508,7 @@ meta.foundation-mq-topbar {
     background: transparent;
     height: auto; }
     .top-bar.expanded .title-area {
-      background: #333333; }
+      background: #1E1E20; }
     .top-bar.expanded .toggle-topbar a {
       color: #888888; }
       .top-bar.expanded .toggle-topbar a span::after {
@@ -4528,7 +4528,7 @@ meta.foundation-mq-topbar {
     padding: 0;
     width: 100%; }
   .top-bar-section .divider, .top-bar-section [role="separator"] {
-    border-top: solid 1px #1a1a1a;
+    border-top: solid 1px #0f0f10;
     clear: both;
     height: 1px;
     width: 100%; }
@@ -4537,7 +4537,7 @@ meta.foundation-mq-topbar {
     .top-bar-section ul li > a {
       color: #fff;
       display: block;
-      font-family: 'Lato', sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
       font-size: 0.8125rem;
       font-weight: normal;
       padding-left: 0.9375rem;
@@ -4732,7 +4732,7 @@ meta.foundation-mq-topbar {
 
 @media only screen and (min-width:40.0625em) {
   .top-bar {
-    background: #333333;
+    background: #1E1E20;
     overflow: visible; }
     .top-bar:before, .top-bar:after {
       content: " ";
@@ -4751,7 +4751,7 @@ meta.foundation-mq-topbar {
       position: relative;
       top: 0.53125rem; }
     .top-bar.expanded {
-      background: #333333; }
+      background: #1E1E20; }
   .contain-to-grid .top-bar {
     margin-bottom: 0;
     margin: 0 auto;
@@ -4773,7 +4773,7 @@ meta.foundation-mq-topbar {
       background: #222222;
       color: #fff; }
     .top-bar-section li:not(.has-form) a:not(.button) {
-      background: #333333;
+      background: #1E1E20;
       line-height: 2.8125rem;
       padding: 0 0.9375rem; }
       .top-bar-section li:not(.has-form) a:not(.button):hover {
@@ -4856,14 +4856,14 @@ meta.foundation-mq-topbar {
         left: 100%;
         top: 0; }
     .top-bar-section > ul > .divider, .top-bar-section > ul > [role="separator"] {
-      border-right: solid 1px #4e4e4e;
+      border-right: solid 1px #3a3a3e;
       border-bottom: none;
       border-top: none;
       clear: none;
       height: 2.8125rem;
       width: 0; }
     .top-bar-section .has-form {
-      background: #333333;
+      background: #1E1E20;
       height: 2.8125rem;
       padding: 0 0.9375rem; }
     .top-bar-section .right li .dropdown {
@@ -5062,7 +5062,7 @@ p {
 /* Default header styles */
 h1, h2, h3, h4, h5, h6 {
   color: #222222;
-  font-family: 'Lato', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
   line-height: 1.4;
@@ -7721,6 +7721,13 @@ th.hide-for-touch {
 .fa-medium:before {
   content: "\f23a"; }
 
+p a {
+  border-bottom: 2px solid #6DBCDB;
+  -webkit-transition: all .6s;
+          transition: all .6s; }
+  p a:hover {
+    border-bottom-color: #194e63; }
+
 input[type="submit"], button, .button {
   background-color: #2C3E50;
   border-color: #233240;
@@ -7739,6 +7746,10 @@ html, body {
   background: #2C3E50;
   padding: 2rem;
   color: #fff; }
+  .footer a {
+    color: #fff; }
+  .footer li {
+    list-style-type: none; }
 
 .first {
   background: #D7DADB;
@@ -7827,7 +7838,7 @@ html, body {
   border-style: solid;
   border-width: 0;
   cursor: pointer;
-  font-family: 'Lato', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 1.25rem;
@@ -7857,7 +7868,13 @@ html, body {
     text-shadow: none; }
 
 .top .top-bar-section li:not(.has-form) a:not(.button), .top .top-bar-section ul li, .top .top-bar {
-  background: #2C3E50; }
+  background: #1E1E20; }
 
 .top-bar-section ul li > label, .top-bar-section ul li > a {
   padding-left: 1rem; }
+
+pre.code {
+  background: #1E1E20;
+  color: #FFFAD5;
+  padding: 1em;
+  margin: 1em 0; }

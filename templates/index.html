@@ -3,7 +3,7 @@
   <div class="row">
     <div class="medium-8 columns small-centered">
       <div class="header">
-        <h1>Sheeet</h1>
+        <h1>{{appName}}</h1>
         <h3 class="subheader">Send data to your google spreadsheet.</h3>
       </div>
       <div class="row">
@@ -48,14 +48,14 @@
   <div class="row">
     <div class="medium-10 small-12 medium-centered columns">
       <h2>Create a document</h2>
-      <p>Create a document in Google docs, and give the sheeet user access.</p>
+      <p>Create a document in Google docs, and give the {{appName}} user access.</p>
       <img src="/public/img/share.gif" />
     </div>
   </div>
   <div class="row">
     <div class="medium-10 small-12 medium-centered columns">
-      <h2>Start to send data to sheeet</h2>
-      <p>Program your server or device to send data to sheeet.</p>
+      <h2>Start to send data to {{appName}}</h2>
+      <p>Program your server or device to send data to {{appName}}.</p>
       <img src="/public/img/send.gif" />
     </div>
   </div>
@@ -71,6 +71,16 @@
   <div class="row">
     <div class="column small-12 medium-10 medium-centered">
       <h1>Get started for free!</h1>
+      {{#if user}}
+      <div class="row">
+        <div class="columns medium-8">
+          <h4 class="subheader">You are already logged in</h4>
+        </div>
+        <div class="columns medium-4">
+          <a href="/user" class="button radius dashboard">Go to my dashboard</a>
+        </div>
+      </div>
+      {{else}}
       <div class="row collapse">
         <div class="columns medium-12">
           <form method="POST" action="/user">
@@ -100,6 +110,7 @@
           </form>
         </div>
       </div>
+      {{/if}}
     </div>
   </div>
 </div>

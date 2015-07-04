@@ -6,6 +6,10 @@
   <label>Google doc ID
     <input id="id" name="id" placeholder="Google doc id" type="text" value="{{document.id}}" />
   </label>
+  <a href="/user" class="button alert">Back</a>
+  <input class="button success" type="submit" value="Update" />
+  <input type="hidden" name="crumb" value="{{crumb}}"/>
+  <h3>Document status</h3>
   <label>
     Document status
     {{#if document.verified}}

@@ -1,3 +1,4 @@
+<h1>Log in</h1>
 <form method="POST" action="/user/login">
   <label>Username
     <input name="user" type="text" placeholder="Username" />
@@ -7,5 +8,6 @@
   </label>
   <input type="hidden" name="crumb" value="{{crumb}}"/>
   <input class="button success" type="submit" value="Log in" />
+  <a href="/login" class="button primary" type="submit">Log in with your google account</a>
 </form>
 <p>Don't have an account. No problem! <a href="/user/register">Sign up for free!</a></p>

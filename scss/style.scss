@@ -2,6 +2,13 @@
 @import "normalize";
 @import "foundation";
 @import "font-awesome";
+p a {
+  border-bottom: 2px solid $success-color;
+  transition: all .6s;
+  &:hover {
+    border-bottom-color: darken($success-color, 40%);
+  }
+}
 input[type="submit"],
 button,
 .button {
@@ -16,6 +23,12 @@ html, body {
   background: $primary-color;
   padding: 2rem;
   color: $white;
+  a {
+    color: $white;
+  }
+  li {
+    list-style-type: none;
+  }
 }
 .first {
   background: $secondary-color;
@@ -142,10 +155,16 @@ html, body {
   .top-bar-section li:not(.has-form) a:not(.button),
   .top-bar-section ul li,
   .top-bar {
-    background: $primary-color;
+    background: $topbar-bg-color;
   }
 }
 .top-bar-section ul li > label,
 .top-bar-section ul li > a {
   padding-left: 1rem;
+}
+pre.code {
+  background: $black;
+  color: $off-white;
+  padding: 1em;
+  margin: 1em 0;
 }
