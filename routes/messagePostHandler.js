@@ -49,7 +49,7 @@ module.exports = function(config) {
       appendRow(request.payload, sheets[id], function(err) {
         if (err) {
           request.log.error(err);
-          // @todo. We should
+          // @todo. We should probably requeue this in some way.
         }
         // Make sure we put a tag on the file, in case it is not marked as
         // already working.
@@ -67,6 +67,7 @@ module.exports = function(config) {
           doc.updated = Date.now();
           db.set(key, doc, function(setErr) {
             if (setErr) {
+              // @todo. Handle this?
               request.log.error(setErr);
             }
           });
