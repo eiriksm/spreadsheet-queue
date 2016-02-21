@@ -3,3 +3,13 @@ sudo: false
 node_js:
   - "node"
   - "4"
+addons:
+   apt:
+     sources:
+       - ubuntu-toolchain-r-test
+     packages:
+       - gcc-4.8
+       - g++-4.8
+env:
+  - CXX=g++-4.8
+
