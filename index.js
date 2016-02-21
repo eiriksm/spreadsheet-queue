@@ -8,6 +8,8 @@ var logger = bunyan.createLogger({
 });
 var Hapi = require('hapi');
 var Joi = require('joi');
+var Inert = require('inert');
+var Vision = require('vision');
 var hapiSwagger = require('hapi-swagger');
 var pack = require('./package');
 var swaggerOptions = {
@@ -419,22 +421,24 @@ server.route({
   },
   handler: routes.userValidate(config)
 });
-server.route({
-  path: '/public/{path*}',
-  method: 'GET',
-  config: {
-    cache: {
-      privacy: 'public',
-      expiresIn: 24 * 60 * 60 * 1000 // 1 day
+server.register([Inert, Vision], function () {
+  server.route({
+    path: '/public/{path*}',
+    method: 'GET',
+    config: {
+      cache: {
+        privacy: 'public',
+        expiresIn: 24 * 60 * 60 * 1000 // 1 day
+      }
+    },
+    handler: {
+      directory: {
+        path: './public',
+        listing: false,
+        index: true
+      }
     }
-  },
-  handler: {
-    directory: {
-      path: './public',
-      listing: false,
-      index: true
-    }
-  }
+  });
 });
 
 server.ext('onRequest', function (request, reply) {
