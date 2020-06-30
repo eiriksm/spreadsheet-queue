@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "browserify": "^10.2.4",
-    "eslint": "^0.24.0",
+    "eslint": "^7.3.1",
     "font-awesome": "^4.3.0",
     "foundation.scss": "^5.5.1",
     "gulp": "^3.9.0",
